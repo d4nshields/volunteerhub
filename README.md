@@ -21,7 +21,7 @@ The goal is to create a **modular and extensible** foundation for building appli
 ## Structure
 The workspace follows a monorepo structure with the core library housed in the `projects/` directory.  
 
-\```
+```
 volunteerHub/
 │
 ├── projects/
@@ -38,7 +38,7 @@ volunteerHub/
 ├── angular.json
 ├── package.json
 └── README.md
-\```
+```
 
 ---
 
@@ -59,24 +59,24 @@ volunteerHub/
 
 ### Dynamic Base URL  
 The API base URL can be configured at runtime to allow switching between different environments (e.g., staging and production).  
-\```typescript
+```typescript
 service.setBaseUrl('https://dailybread.volunteerhub.com/internalapi');
-\```
+```
 
 ### Authentication  
 User credentials are stored securely using `@capacitor/preferences`.  
-\```typescript
+```typescript
 await service.setAuth(username, password);
 const isValid = await service.isAuthValid();
-\```
+```
 
 ### Fetching Data from the API  
 API calls are made using the reusable `get()` method, ensuring that authentication headers are automatically applied.  
-\```typescript
+```typescript
 service.get('volunteerview/view/index').subscribe((data) => {
   console.log(data);
 });
-\```
+```
 
 ---
 
@@ -89,43 +89,43 @@ For detailed information on the VolunteerHub REST API, please refer to the offic
 ## How to Use the Library in Your Application  
 
 1. **Install the Library**  
-\```bash
+```bash
 npm install volunteerhub-core
-\```
+```
 
 2. **Import the Module**  
 Add the core module to your application's `AppModule`:  
-\```typescript
+```typescript
 import { VolunteerHubCoreModule } from 'volunteerhub-core';
 
 @NgModule({
   imports: [VolunteerHubCoreModule],
 })
 export class AppModule {}
-\```
+```
 
 3. **Use Components in Templates**  
-\```html
+```html
 <volunteerhub-event-card [event]="eventData"></volunteerhub-event-card>
-\```
+```
 
 ---
 
 ## Development Workflow
 1. **Build the Library**  
-\```bash
+```bash
 ng build volunteerhub-core
-\```
+```
 
 2. **Run Tests**  
-\```bash
+```bash
 ng test volunteerhub-core
-\```
+```
 
 3. **Publish to npm (Optional)**  
-\```bash
+```bash
 npm publish dist/volunteerhub-core
-\```
+```
 
 ---
 
