@@ -3,5 +3,39 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "volunteerhub-core": {
+      "projectType": "library",
+      "root": "projects/volunteerhub-core",
+      "sourceRoot": "projects/volunteerhub-core/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/volunteerhub-core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/volunteerhub-core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/volunteerhub-core/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/volunteerhub-core/tsconfig.spec.json",
+            "karmaConfig": "./karma.conf.js",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    }
   }
 }
