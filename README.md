@@ -1,59 +1,138 @@
-# VolunteerHub
+# VolunteerHub Core Library  
+_Angular Workspace for Building Reusable VolunteerHub Components and Services_
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+---
 
-## Development server
+## Project Overview  
+The `volunteerhub` workspace is designed to provide a reusable Angular library (`volunteerhub-core`) that simplifies interaction with the **VolunteerHub REST API**. This core library contains essential services and components that can be integrated across multiple Angular applications to manage volunteer schedules, event data, and authentication.
 
-To start a local development server, run:
+The goal is to create a **modular and extensible** foundation for building applications that interact with the VolunteerHub platform.
 
-```bash
-ng serve
+---
+
+## Key Features
+- **Dynamic Base URL Configuration** – Easily set and switch between different API environments.
+- **Authentication Management** – Securely store and validate user credentials using `@capacitor/preferences`.
+- **Reusable Components** – Customizable UI components (like event cards) that display data retrieved from the VolunteerHub API.
+- **Extensibility** – The component library can be styled and extended by consuming applications.
+
+---
+
+## Structure
+The workspace follows a monorepo structure with the core library housed in the `projects/` directory.  
+
+```
+volunteerHub/
+│
+├── projects/
+│   └── volunteerhub-core/           # Core Angular Library
+│       ├── src/
+│       │   ├── lib/
+│       │   │   ├── components/      # UI Components (Event Cards, etc.)
+│       │   │   ├── services/        # API Service Layer
+│       │   │   ├── volunteerhub-core.module.ts
+│       │   │   └── public-api.ts
+│       ├── README.md
+│       └── ng-package.json
+│
+├── angular.json
+├── package.json
+└── README.md
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## Components and Services
+### 1. Services (volunteerhub-core.service.ts)  
+- **VolunteerHubCoreService** – Provides methods to:  
+  - Set the base API URL dynamically.  
+  - Authenticate users and validate sessions.  
+  - Perform GET requests to retrieve event and volunteer data.  
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 2. Components (Event Cards, etc.)  
+- **VolunteerHubEventCardComponent**  
+  Displays volunteer events with customizable templates, allowing for dynamic styling and extensibility.  
 
-```bash
-ng generate component component-name
+---
+
+## Implementation Details
+
+### Dynamic Base URL  
+The API base URL can be configured at runtime to allow switching between different environments (e.g., staging and production).  
+```typescript
+service.setBaseUrl('https://dailybread.volunteerhub.com/internalapi');
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
+### Authentication  
+User credentials are stored securely using `@capacitor/preferences`.  
+```typescript
+await service.setAuth(username, password);
+const isValid = await service.isAuthValid();
 ```
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
+### Fetching Data from the API  
+API calls are made using the reusable `get()` method, ensuring that authentication headers are automatically applied.  
+```typescript
+service.get('volunteerview/view/index').subscribe((data) => {
+  console.log(data);
+});
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## Central API Documentation  
+For detailed information on the VolunteerHub REST API, please refer to the official documentation:  
+🔗 **[VolunteerHub API Documentation](https://support.volunteerhub.com/support/solutions)**
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+---
 
+## How to Use the Library in Your Application  
+
+1. **Install the Library**  
 ```bash
-ng test
+npm install volunteerhub-core
 ```
 
-## Running end-to-end tests
+2. **Import the Module**  
+Add the core module to your application's `AppModule`:  
+```typescript
+import { VolunteerHubCoreModule } from 'volunteerhub-core';
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+@NgModule({
+  imports: [VolunteerHubCoreModule],
+})
+export class AppModule {}
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+3. **Use Components in Templates**  
+```html
+<volunteerhub-event-card [event]="eventData"></volunteerhub-event-card>
+```
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Development Workflow
+1. **Build the Library**  
+```bash
+ng build volunteerhub-core
+```
+
+2. **Run Tests**  
+```bash
+ng test volunteerhub-core
+```
+
+3. **Publish to npm (Optional)**  
+```bash
+npm publish dist/volunteerhub-core
+```
+
+---
+
+## Contributing  
+We welcome contributions to improve this library. Feel free to submit issues or pull requests.
+
+---
+
+## License  
+MIT License
