@@ -4,10 +4,15 @@
   "peerDependencies": {
     "@angular/common": "^19.0.0",
     "@angular/core": "^19.0.0",
-    "@capacitor/preferences": "^6.0.3"
+    "@capacitor/preferences": "^6.0.3",
+    "rxjs": "^7.4.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "ts-jest": "^29.2.5"
+  }
 }
