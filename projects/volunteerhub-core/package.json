@@ -4,6 +4,8 @@
   "peerDependencies": {
     "@angular/common": "^19.0.0",
     "@angular/core": "^19.0.0",
+    "@angular/platform-browser": "^19.0.0",
+    "@angular/platform-browser-dynamic": "^19.0.0",
     "@capacitor/preferences": "^6.0.3",
     "rxjs": "^7.4.0"
   },
@@ -13,6 +15,7 @@
   "sideEffects": false,
   "devDependencies": {
     "@types/jest": "^29.5.14",
-    "ts-jest": "^29.2.5"
+    "ts-jest": "^29.2.5",
+    "@types/zone.js": "0.0.27"
   }
 }
